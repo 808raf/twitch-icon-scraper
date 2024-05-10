@@ -42,6 +42,13 @@ import fs from "fs";
         "-300x300"
       );
 
+      // Grab the amount of followers
+      result.followers = await page.$eval("div.Layout-sc-1xcs6mc-0", (div) => {
+        const text = div.textContent.trim();
+        const match = text.match(/\d+k followers/i);
+        return match ? match[0] : null;
+      });
+
       // Close the current page
       await page.close();
     } catch (error) {
