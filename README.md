@@ -102,7 +102,7 @@ Each object in the JSON array represents the scraped data for a Twitch username.
 
 ## Contributing
 
-Contributions to Twitch Icon Scraper are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request. Make sure to follow the [code of conduct](CODE_OF_CONDUCT.md).
+Contributions to Twitch Icon Scraper are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
 ## License
 
