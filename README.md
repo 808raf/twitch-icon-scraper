@@ -22,6 +22,7 @@ Twitch Icon Scraper is a Node.js application built with Puppeteer, a headless br
 - Allows scraping for multiple Twitch usernames in one go.
 - Customizable to scrape additional information as needed.
 - Outputs results to twitch_results.json
+- Added 05/10/2024 Scrapes follower count as well
 
 ## Installation
 
@@ -81,6 +82,7 @@ Here's an example of what the `twitch_results.json` file might contain:
     "twitchUsername": "Username 1",
     "imageSrc70x70": "https://example.com/username1_70x70.png",
     "imageSrc300x300": "https://example.com/username1_300x300.png"
+    "followers": "1.3m followers"
   },
   {
     "username": "username2",
@@ -91,11 +93,12 @@ Here's an example of what the `twitch_results.json` file might contain:
     "twitchUsername": "Username 3",
     "imageSrc70x70": "https://example.com/username3_70x70.png",
     "imageSrc300x300": "https://example.com/username3_300x300.png"
+    "followers": "100k followers"
   }
 ]
 ```
 
-Each object in the JSON array represents the scraped data for a Twitch username. If scraping was successful, it includes the `twitchUsername`, `imageSrc70x70`, and `imageSrc300x300` fields. If an error occurred during scraping, it includes an `error` field with the error message.
+Each object in the JSON array represents the scraped data for a Twitch username. If scraping was successful, it includes the `twitchUsername`, `imageSrc70x70`, `imageSrc300x300` and `followers` fields. If an error occurred during scraping, it includes an `error` field with the error message.
 
 ## Contributing
 
