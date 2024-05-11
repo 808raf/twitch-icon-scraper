@@ -22,7 +22,7 @@ Twitch Icon Scraper is a Node.js application built with Puppeteer, a headless br
 - Allows scraping for multiple Twitch usernames in one go.
 - Customizable to scrape additional information as needed.
 - Outputs results to twitch_results.json
-- Added 05/10/2024 Scrapes follower count as well
+- 05/10/2024 - Added follower count scraping
 
 ## Installation
 
