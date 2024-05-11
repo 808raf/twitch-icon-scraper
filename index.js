@@ -20,15 +20,20 @@ import fs from "fs";
     try {
       // Open a new page for each username
       const page = await browser.newPage();
+      await page.setViewport({ width: 1920, height: 1080 });
 
       // Construct the Twitch URL for the current username
       const twitchUrl = `https://www.twitch.tv/${username}`;
 
       // Navigate the page to the Twitch URL
       await page.goto(twitchUrl);
+      console.log(`Currently Scraping: ${username}`);
 
       // Wait for the Twitch username to load
       result.twitchUsername = await getTwitchUsername(page);
+
+      // Wait for the image to load
+      await page.waitForSelector(`img[alt="${result.twitchUsername}"]`);
 
       // Extract the image source and alt attribute for 70x70
       result.imageSrc70x70 = await page.$eval(
@@ -42,15 +47,29 @@ import fs from "fs";
         "-300x300"
       );
 
-      // Grab the amount of followers
-      result.followers = await page.$eval("div.Layout-sc-1xcs6mc-0", (div) => {
-        const text = div.textContent.trim();
-        const match = text.match(/\d+k followers/i);
-        return match ? match[0] : null;
-      });
+      try {
+        // Navigate to the videos page of the Twitch channel
+        await page.goto(`https://www.twitch.tv/${username}/videos`);
+
+        // Wait for the followers count element to appear
+        await page.waitForSelector("p.CoreText-sc-1txzju1-0.cwNkcn");
+
+        // Extract the followers count
+        const followersCount = await page.$eval(
+          "p.CoreText-sc-1txzju1-0.cwNkcn",
+          (p) => {
+            return p.textContent.trim();
+          }
+        );
+        result.followers = followersCount;
+        console.log("Followers count:", followersCount);
+      } catch (error) {
+        console.error("Failed to scrape followers count:", error);
+      }
 
       // Close the current page
       await page.close();
+      console.log(`Finished scraping: ${username}`);
     } catch (error) {
       console.error(`Error scraping Twitch username "${username}".`);
       // Store the error message in the result object
